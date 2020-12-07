@@ -1,25 +1,13 @@
 import './styles.css';
-import Header from './containers/Header'
-// import Header from './components/header'
-// import Slider from './components/slider'
-// import Search from './components/search'
-// import WorkingHours from './components/workinghours'
+import React from 'react';
+import States from './components/states'
+import Main from './containers/Main'
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      
-      
-      
-      
-      {/* <Header />
-      <Slider />
-      <div className="lowerblock">
-        <Search />
-        <WorkingHours />
-      </div> */}
-
+      <Main />
     </div>
   );
 }

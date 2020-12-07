@@ -1,8 +1,8 @@
 @import url('./App.css');
 @import url('./common.css');
-@import url('./Header.css');
-@import url('./Slider.css');
-@import url('./Search.css');
-@import url('./WorkingHours.css');
+@import url('./components/header/Header.css');
+@import url('./components/slider/Slider.css');
+@import url('./components/search/Search.css');
+@import url('./components/workinghours/WorkingHours.css');
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap');

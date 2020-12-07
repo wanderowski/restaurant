@@ -4,7 +4,7 @@ import twitter from '../../img/widgets/twitter.svg'
 import behance from '../../img/widgets/behance.svg'
 
 
-function Header() {
+function Header(props) {
     return(
         <header className="header">
             
@@ -45,7 +45,7 @@ function Header() {
                 </div>
 
             </div>
-
+        {console.log(props)}
         </header>
     )
 }
