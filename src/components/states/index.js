@@ -90,7 +90,7 @@ function Header() {
 
     const optionsBlocks= options.map((item, i) => <option value={item} key={i}>{item}</option>)
 
-    const [disabled, setDisabled] = useState('true')
+    const [disabled, setDisabled] = useState(true)
 
 
     
