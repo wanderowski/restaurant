@@ -49,10 +49,19 @@ function Header() {
         })
     }
 
-    const addOption = e => {
-        setOptions([...options, e.target.value])
+    const addOption = () => {
+        setOptions([...options, newOption])
     }
 
+    const getNewOption = e => {
+        newOption = e.target.value
+    }
+
+    let newOption = ''
+
+    const switchInput = () => {
+        setDisabled(!disabled)
+    }
 
     const [text, setText] = useState('')
 
@@ -80,6 +89,8 @@ function Header() {
     const [options, setOptions] = useState(['Hello', 'How are you?', 'Decode'])
 
     const optionsBlocks= options.map((item, i) => <option value={item} key={i}>{item}</option>)
+
+    const [disabled, setDisabled] = useState('true')
 
 
     
@@ -131,7 +142,10 @@ function Header() {
             <button onClick={addOption}>Add Option</button>
             <select name="some">
                 {optionsBlocks}
-            </select>
+            </select> <br/> <br/>
+
+            <input type="checkbox" onChange={switchInput}/>Turn on the input field <br/>
+            <input type="text" disabled={disabled}/>
 
         </div>
     )
