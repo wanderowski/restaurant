@@ -13,3 +13,7 @@ a {
 .container {
     width: 85%;
 }
+
+ul {
+    list-style-type: none;
+}

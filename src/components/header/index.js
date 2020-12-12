@@ -1,10 +1,11 @@
 import React from 'react'
-import facebook from '../../img/widgets/facebook.svg'
-import twitter from '../../img/widgets/twitter.svg'
-import behance from '../../img/widgets/behance.svg'
+import NavItem from '../navitem'
 
 
-function Header(props) {
+function Header({headerItems}) {
+    const navItems = headerItems.map((item, i) =>
+        <NavItem key={i} title={item} />
+    )
     return(
         <header className="header">
             
@@ -22,18 +23,12 @@ function Header(props) {
 
                         <ul className="header__navlist">
 
-                            <li className="header__navitem header__navitem-active"><a href="#">Home</a></li>
-                            <li className="header__navitem"><a href="#">Pages</a></li>
-                            <li className="header__navitem"><a href="#">About</a></li>
-                            <li className="header__navitem"><a href="#">Events</a></li>
-                            <li className="header__navitem"><a href="#">News</a></li>
-                            <li className="header__navitem"><a href="#">Space &amp; Rooms</a></li>
-                            <li className="header__navitem"><a href="#">Store</a></li>
+                            {navItems}
 
                             <div className="header__socnets">
-                                <img src={facebook} alt="facebook" className="header__socnet"/>
-                                <img src={twitter} alt="twitter" className="header__socnet"/>
-                                <img src={behance} alt="behance" className="header__socnet"/>
+                                <img src='./img/widgets/facebook.svg' alt="facebook" className="header__socnet"/>
+                                <img src='./img/widgets/facebook.svg' alt="twitter" className="header__socnet"/>
+                                <img src='./img/widgets/facebook.svg' alt="behance" className="header__socnet"/>
 
                             </div>
                         </ul>
@@ -45,7 +40,6 @@ function Header(props) {
                 </div>
 
             </div>
-        {console.log(props)}
         </header>
     )
 }
