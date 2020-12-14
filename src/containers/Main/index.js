@@ -1,23 +1,11 @@
 import React, {useState} from 'react'
 import Blogs from '../../components/blogs'
 import Users from '../../components/users'
+import {Link} from 'react-router-dom'
 
 function Main() {
 
-    const blogs = [
-        {
-            title: 'title1',
-            desc: 'title1title1'
-        },
-        {
-            title: 'title2',
-            desc: 'title1title2'
-        },
-        {
-            title: 'title3',
-            desc: 'title1title3'
-        }
-    ]
+    
 
     const [users, setUsers] = useState([
         {name: 'Bekzat', age: 20},
@@ -47,10 +35,19 @@ function Main() {
         
     }
 
+    const styles = {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        width: '100%',
+        flexWrap:'wrap',
+    }
+
     return(
-        <div>
-            <Blogs blogs={blogs}/> <br/>
-            <Users users={users} sortUsers={sortUsers} notSorted={notSorted}/>
+        <div style={{width: '100%'}}>
+            <Blogs style={styles}/> <br/>
+
         </div>
     )
 }
