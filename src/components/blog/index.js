@@ -26,7 +26,7 @@ function Blog(props) {
           <Dropdown overlay={menu} placement="bottomLeft" arrow>
             <Button>•••</Button>
           </Dropdown>
-        } style={{ width: 400, margin: 30}}>
+        } style={{ width: '25%', margin: 30}}>
             <p>{desc}</p>
         </Card>
     )

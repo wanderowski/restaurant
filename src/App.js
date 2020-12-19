@@ -1,12 +1,16 @@
 import './styles.css';
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import configureStore from './store'
+import {Provider} from 'react-redux'
+
 import Main from './containers/Main'
 
 import ToDo from './containers/ToDo'
 
 import Header from './components/header'
 import Books from './components/books'
+import SignUp from './containers/SignUp'
 
 import 'antd/dist/antd.css';
 
@@ -53,15 +57,16 @@ function App() {
         }
     }
 ]
-
+    const store = configureStore()
   return (
     <div className="App">
+        <Provider store={store}>
         <Router>
             <Switch>
-                <Route exact path="/" component={Main}/>
-                
+                <Route exact path="/" component={SignUp}/>
             </Switch>
         </Router>
+        </Provider>
 
     </div>
   );

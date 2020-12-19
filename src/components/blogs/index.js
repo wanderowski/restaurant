@@ -72,7 +72,7 @@ function Blogs({style}) {
         setEdit(true)
         setBlog(blogs[key])
         setIndex(key)
-        handleOpenModal(edit)
+        handleOpenModal()
 
     }
 
