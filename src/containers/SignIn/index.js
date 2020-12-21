@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authActions'
 import {withRouter} from 'react-router-dom'
-import {Link} from 'react-router-dom'
 
-function SignUp(props) {
+function SignIn(props) {
+
 
   const layout = {
     labelCol: { span: 8 },
@@ -15,7 +15,7 @@ function SignUp(props) {
 
   const onFinish = values => {
     console.log('Success:', values);
-    props.authActions.signUp(values);
+    props.authActions.signIn(values);
     props.history.push('/profile')
   };
 
@@ -34,23 +34,11 @@ function SignUp(props) {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your username!',
-            },
-          ]}
-        >
-          <Input autoComplete="false"/>
-        </Form.Item>
-        <Form.Item
           label="E-mail"
           name="email"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Please input your email!',
             },
           ]}
@@ -63,7 +51,7 @@ function SignUp(props) {
           name="password"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Please input your password!',
             },
           ]}
@@ -73,22 +61,19 @@ function SignUp(props) {
   
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Log in
           </Button>
         </Form.Item>
-        <Link to='/signin'>Already have an account?</Link>
       </Form>
     )
   }
 
 const mapStateToProps = state => ({
-  isLoading: state.authReducer.isLoading,
-  isAuth: state.authReducer.isAuth,
-  user: state.authReducer.user
+  isLoading: state.authReducer.isLoading
 })
 
 const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(authActions, dispatch)
 })
 
-  export default connect(mapStateToProps,mapDispatchToProps)(withRouter(SignUp))
+  export default connect(mapStateToProps,mapDispatchToProps)(withRouter(SignIn))

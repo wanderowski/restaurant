@@ -11,9 +11,28 @@ import ToDo from './containers/ToDo'
 import Header from './components/header'
 import Books from './components/books'
 import SignUp from './containers/SignUp'
+import SignIn from './containers/SignIn'
 
 import 'antd/dist/antd.css';
+import setAuthToken from './utils/setAuthToken';
+import jwt_decode from 'jwt-decode'
+import * as types from './actions/types'
+import Dashboard from './containers/Dashboard';
 
+const store = configureStore()
+
+if (localStorage.token) {
+    setAuthToken(localStorage.token)
+    const decoded = jwt_decode(localStorage.token)
+    store.dispatch({type: types.SET_CURRENT_USER, payload: decoded})
+    const currentTime = Date.now()/1000
+    if (decoded.exp < currentTime) { 
+        localStorage.removeItem('token')
+        setAuthToken(false)
+        store.dispatch({type: types.SET_CURRENT_USER, payload: {}})
+        window.location.href = '/'
+    } 
+}
 
 function App() {
 
@@ -57,13 +76,15 @@ function App() {
         }
     }
 ]
-    const store = configureStore()
+
   return (
     <div className="App">
         <Provider store={store}>
         <Router>
             <Switch>
                 <Route exact path="/" component={SignUp}/>
+                <Route exact path="/signin" component={SignIn} />
+                <Route path="/dashboard" component={Dashboard} />
             </Switch>
         </Router>
         </Provider>

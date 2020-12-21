@@ -1,7 +1,11 @@
 import * as types from '../actions/types'
+import isEmpty from '../validation/isEmpty'
 
 const initialState = {
-    isLoading: false
+    isLoading: false,
+    isAuth: false,
+    user: {},
+    error: ''
 }
 
 export default function authReducer(state = initialState, action) {
@@ -11,7 +15,13 @@ export default function authReducer(state = initialState, action) {
         case types.SIGN_UP_SUCCESS: 
             return {...state, isLoading: false}
         case types.SIGN_UP_FAILED: 
-            return {...state, isLoading: false}
+            return {...state, isLoading: false, error: action.error}
+        case types.SIGN_IN: 
+            return {...state, isLoading: true}
+        case types.SET_CURRENT_USER:
+            return {...state, isLoading: false, isAuth: !isEmpty(action.payload), user: action.payload}
+        case types.SIGN_IN_FAILED: 
+            return {...state, isLoading: false, error: action.error}
         default: 
             return {state}
     }
