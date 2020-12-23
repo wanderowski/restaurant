@@ -2,7 +2,7 @@ import React from 'react'
 
 function Kitchen() {
     return(
-        <div>Kitchen</div>
+        <h1>Kitchen</h1>
     )
 }
 

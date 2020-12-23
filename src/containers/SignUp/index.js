@@ -16,7 +16,7 @@ function SignUp(props) {
   const onFinish = values => {
     console.log('Success:', values);
     props.authActions.signUp(values);
-    props.history.push('/profile')
+    props.history.push('/signin')
   };
 
   const onFinishFailed = errorInfo => {

@@ -1,52 +1,52 @@
 import React from 'react'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  CoffeeOutlined,
+  VideoCameraOutlined
 } from '@ant-design/icons';
 import { Route, Link } from 'react-router-dom'
 import Kitchen from '../Kitchen';
+import Restaurant from '../Restaurant';
+
 
 
 const { Header, Sider, Content } = Layout;
 
 
-function Dashboard() {
+
+function Dashboard({logoutHandler}) {
     return (
-        <Layout>
+        <Layout style={{
+          width: '100vw',
+          height: '100vh'
+        }}>
           <Sider trigger={null} collapsible>
-            <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" icon={<UserOutlined />}>
-                <Link to="/dashboard/kitchen">Nav 1</Link>
+              <Menu.Item key="1" icon={<CoffeeOutlined />}>
+                <Link to="/dashboard/restaurant">Restaurants</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                nav 2
-              </Menu.Item>
-              <Menu.Item key="3" icon={<UploadOutlined />}>
-                nav 3
+                <Link to="/dashboard/kitchen">Kitchen</Link>
               </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }}>
+            <Header className="site-layout-background" style={{ padding: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}>
               {/* {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                 className: 'trigger',
                 onClick: this.toggle,
               })} */}
+              <Button type="primary" danger onClick={logoutHandler}>Log Out</Button>
             </Header>
             <Content
               className="site-layout-background"
               style={{
-                margin: '24px 16px',
-                padding: 24,
-                minHeight: 280,
+                padding: '24px 16px',
+                minWidth: 280
               }}
             >
             <Route exact path="/dashboard/kitchen" component={Kitchen} />
+            <Route exact path="/dashboard/restaurant" component={Restaurant} />
             </Content>
           </Layout>
         </Layout>

@@ -14,9 +14,8 @@ function SignIn(props) {
   };
 
   const onFinish = values => {
-    console.log('Success:', values);
     props.authActions.signIn(values);
-    props.history.push('/profile')
+    props.history.push('/main')
   };
 
   const onFinishFailed = errorInfo => {

@@ -16,7 +16,8 @@ function* signup(action) {
 }
 
 function* signin(action) {
-    const {data} = action 
+    const {data} = action
+    console.log('HIIIIIIIIIIIIII', data)
     try {
         const auth = yield axios.post('http://37.18.30.124:9000/api/users/login', data).then(res => res.data)
         const {token} = auth
