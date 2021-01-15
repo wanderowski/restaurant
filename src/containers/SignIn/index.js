@@ -15,7 +15,7 @@ function SignIn(props) {
 
   const onFinish = values => {
     props.authActions.signIn(values);
-    props.history.push('/main')
+    props.history.push('/dashboard/kitchen')
   };
 
   const onFinishFailed = errorInfo => {
@@ -31,6 +31,13 @@ function SignIn(props) {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        style={{
+          width: 400,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}
       >
         <Form.Item
           label="E-mail"

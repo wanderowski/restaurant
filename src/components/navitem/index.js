@@ -1,9 +1,10 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-function NavItem({title}) {
+function NavItem({title, altname}) {
     return (
         <li className="header__navitem">
-            <a href="#">{title}</a>
+            <Link to={altname}>{title}</Link>
         </li>
     )
 }

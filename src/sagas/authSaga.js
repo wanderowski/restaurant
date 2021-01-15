@@ -17,7 +17,6 @@ function* signup(action) {
 
 function* signin(action) {
     const {data} = action
-    console.log('HIIIIIIIIIIIIII', data)
     try {
         const auth = yield axios.post('http://37.18.30.124:9000/api/users/login', data).then(res => res.data)
         const {token} = auth
@@ -31,9 +30,24 @@ function* signin(action) {
     }
 }
 
+function* logout() {
+    try {
+        setAuthToken(false)
+        localStorage.removeItem('token')
+        yield put({type: types.SET_CURRENT_USER, payload: {}})
+        yield put({type: types.LOG_OUT_SUCCESS})
+        window.location.href = '/'
+        
+    }
+    catch(err) {
+        yield put({type: types.LOG_OUT_FAILED, err})
+    }
+}
+
 export function* authSaga() {
     yield all([
         yield takeLatest(types.SIGN_UP, signup),
-        yield takeLatest(types.SIGN_IN, signin)
+        yield takeLatest(types.SIGN_IN, signin),
+        yield takeLatest(types.LOG_OUT, logout)
     ])
 }

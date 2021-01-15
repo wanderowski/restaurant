@@ -22,7 +22,13 @@ export default function authReducer(state = initialState, action) {
             return {...state, isLoading: false, isAuth: !isEmpty(action.payload), user: action.payload}
         case types.SIGN_IN_FAILED: 
             return {...state, isLoading: false, error: action.error}
+        case types.LOG_OUT: 
+            return {...state, isLoading: true}
+        case types.LOG_OUT_SUCCESS: 
+            return {...state, isLoading: false, isAuth: false, user: {}}
+        case types.LOG_OUT_FAILED: 
+            return {...state, isLoading: false, isAuth: !isEmpty(action.payload), user: action.payload}
         default: 
-            return {state}
+            return state
     }
 }

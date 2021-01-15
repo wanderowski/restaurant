@@ -7,3 +7,7 @@ export function signUp(data) {
 export function signIn(data) {
     return {type: types.SIGN_IN, data}
 } 
+
+export function logOut() {
+    return {type: types.LOG_OUT}
+}

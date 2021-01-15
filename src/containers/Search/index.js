@@ -1,34 +1,34 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from '../../components/header'
-import Content from '../../components/content'
-import Footer from '../../components/footer'
-
+import SearchMain from '../../components/searchmain'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as restActions from '../../actions/restActions'
 import { withRouter } from 'react-router-dom'
 
 
-
-function Main(props) {
-    const styles = {
-        width: '100%',
-        backgroundColor: 'red'
-    }
+function Search(props) {
+    const query = new URLSearchParams(props.location.search).get('query');
 
     const onSearch = (query) => {
         window.location.href = `/search?query=${query}`
     }
+    
+    useEffect(() => {
+        props.restActions.getRestaurants({
+            query: query,
+            page: ''
+        })
+    }, [query])
+    const rests = props.restaurants
     return(
-        <div style={styles}>
+        <div style={{width: '100%'}}>
             <Header onSearch={onSearch} headerItems={[{title: 'Рестораны', altname: 'restaurants'}, {title: 'Кухни', altname: 'kitchens'}, {title: 'Популярные', altname: 'popular'}, {title: 'Забронировать', altname: 'book'}, {title: 'Контакты', altname: 'contacts'}]}/>
-            <Content />
-            <Footer />
+            <SearchMain rests={rests}/>
         </div>
+        
     )
 }
-
-
 const mapStateToProps = state => ({
     isLoading: state.restReducer.isLoading,
     restaurants: state.restReducer.restaurants,
@@ -36,10 +36,11 @@ const mapStateToProps = state => ({
     pageSize: state.restReducer.pageSize,
     addResponse: state.restReducer.addResponse,
     deleteResponse: state.restReducer.deleteResponse,
-    kitchens: state.kitchenReducer.kitchens
   })
   
-  const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     restActions: bindActionCreators(restActions, dispatch),
-  })
-  export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Search))
+

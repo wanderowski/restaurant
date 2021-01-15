@@ -13,6 +13,7 @@ import Dashboard from './containers/Dashboard';
 import SignUp from './containers/SignUp'
 import SignIn from './containers/SignIn'
 import Main from './containers/Main';
+import Search from './containers/Search'
 
 const store = configureStore()
 
@@ -29,24 +30,18 @@ if (localStorage.token) {
     } 
 }
 
-const logoutHandler = () => {
-    localStorage.removeItem('token')
-    setAuthToken(false)
-    store.dispatch({type: types.SET_CURRENT_USER, payload: {}})
-    window.location.href = '/'
-    console.log('hello')
-  }
-
 function App() {
   return (
     <div className="App">
         <Provider store={store}>
         <Router>
             <Switch>
-                <Route exact path="/" component={SignUp}/>
+                <Route exact path="/" component={Main} />
+                <Route exact path="/signup" component={SignUp}/>
                 <Route exact path="/signin" component={SignIn} />
-                <Route path="/dashboard" component={()=> Dashboard(logoutHandler)} />
+                <Route path="/dashboard" component={Dashboard} />
                 <Route exact path="/main" component={Main} />
+                <Route exact path="/search" component={Search} />
             </Switch>
         </Router>
         </Provider>

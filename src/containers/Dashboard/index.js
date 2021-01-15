@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   CoffeeOutlined,
   VideoCameraOutlined
@@ -7,14 +7,14 @@ import {
 import { Route, Link } from 'react-router-dom'
 import Kitchen from '../Kitchen';
 import Restaurant from '../Restaurant';
-
+import LogoutButton from '../../components/logoutbutton'
 
 
 const { Header, Sider, Content } = Layout;
 
 
 
-function Dashboard({logoutHandler}) {
+function Dashboard() {
     return (
         <Layout style={{
           width: '100vw',
@@ -31,12 +31,8 @@ function Dashboard({logoutHandler}) {
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}>
-              {/* {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                className: 'trigger',
-                onClick: this.toggle,
-              })} */}
-              <Button type="primary" danger onClick={logoutHandler}>Log Out</Button>
+            <Header className="site-layout-background" style={{ padding: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}>  
+              <LogoutButton />
             </Header>
             <Content
               className="site-layout-background"
@@ -52,5 +48,6 @@ function Dashboard({logoutHandler}) {
         </Layout>
       );
 }
+
 
 export default Dashboard

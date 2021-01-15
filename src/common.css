@@ -1,5 +1,9 @@
 * {
     margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
     padding: 0px;
     font-family: 'Roboto Slab', sans-serif;
     font-weight: 600;
@@ -13,7 +17,7 @@ a {
 }
 
 .container {
-    width: 85%;
+    width: 90%;
 }
 
 ul {
