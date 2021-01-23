@@ -8,7 +8,7 @@ function Footer() {
                 <div className="footer__wrapper">
                     <div className="footer__text">
                         <p>
-                            Copyright © 2020 FindMyResto.kz<br/>
+                            Copyright © 2020 Restoran.kz<br/>
                             All Right Reserved.
                         </p>
                     </div>                    

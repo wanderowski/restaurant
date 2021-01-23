@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../../components/header'
+import Slider from '../../components/slider'
 import Content from '../../components/content'
 import Footer from '../../components/footer'
 
@@ -8,20 +9,19 @@ import { bindActionCreators } from 'redux'
 import * as restActions from '../../actions/restActions'
 import { withRouter } from 'react-router-dom'
 
+export function onSearch (query) {
+    window.location.href = `/search?query=${query}`
+}
 
 
 function Main(props) {
     const styles = {
-        width: '100%',
-        backgroundColor: 'red'
-    }
-
-    const onSearch = (query) => {
-        window.location.href = `/search?query=${query}`
+        width: '100%'
     }
     return(
         <div style={styles}>
-            <Header onSearch={onSearch} headerItems={[{title: 'Рестораны', altname: 'restaurants'}, {title: 'Кухни', altname: 'kitchens'}, {title: 'Популярные', altname: 'popular'}, {title: 'Забронировать', altname: 'book'}, {title: 'Контакты', altname: 'contacts'}]}/>
+            <Header onSearch={onSearch} />
+            <Slider />
             <Content />
             <Footer />
         </div>

@@ -15,7 +15,7 @@ function SignIn(props) {
 
   const onFinish = values => {
     props.authActions.signIn(values);
-    props.history.push('/dashboard/kitchen')
+  
   };
 
   const onFinishFailed = errorInfo => {

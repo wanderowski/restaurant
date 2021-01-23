@@ -113,7 +113,7 @@ function Kitchen(props) {
     return(
         <Spin spinning={props.isLoading}>
             <Button onClick={showModal}>Add Kitchen</Button> <br/><br/>
-            <Table columns={columns} dataSource={data} />
+            <Table size="small" columns={columns} dataSource={data} />
 
             <Modal title="Add New Kitchen" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <label>Please, indicate the name of a kitchen:</label><br/>

@@ -14,6 +14,7 @@ import SignUp from './containers/SignUp'
 import SignIn from './containers/SignIn'
 import Main from './containers/Main';
 import Search from './containers/Search'
+import Rest from './containers/Rest';
 
 const store = configureStore()
 
@@ -42,6 +43,8 @@ function App() {
                 <Route path="/dashboard" component={Dashboard} />
                 <Route exact path="/main" component={Main} />
                 <Route exact path="/search" component={Search} />
+                <Route exact path="/rest" component={Rest} />
+                
             </Switch>
         </Router>
         </Provider>

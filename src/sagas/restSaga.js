@@ -46,11 +46,22 @@ function* deleteRestaurant(action) {
     }
 }
 
+function* getRestaurant(action) {
+    const { data } = action
+    try {
+        const restaurant = yield axios.get(`http://37.18.30.124:9000/api/restaurant/${data}`).then(res => res.data)
+        yield put({type: types.GET_REST_SUCCESS, payload: restaurant})
+    } catch(err) {
+        yield put({type: types.GET_REST_FAILED, err})
+    }
+}
+
 
 export function* restSaga() {
     yield all([
         yield takeLatest(types.GET_RESTS, getRestaurants),
         yield takeLatest(types.ADD_REST, addRestaurant),
-        yield takeLatest(types.DEL_REST, deleteRestaurant)
+        yield takeLatest(types.DEL_REST, deleteRestaurant),
+        yield takeLatest(types.GET_REST, getRestaurant)
         ])
 }

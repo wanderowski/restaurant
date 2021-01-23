@@ -1,48 +1,68 @@
-import React from 'react'
-import { Carousel } from 'antd';
-import '../../common.css'
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as restActions from '../../actions/restActions'
+import { withRouter, Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
+import { Card } from 'antd';
+
 import './index.css'
+import '../../common.css'
 
-function Content() {
-    const styles = {
-        width: '100%',
-        minHeight: '75vh',
-        backgroundColor: '#EBECFF'
-    }
+const { Meta } = Card;
 
-    return(
-        <div style={styles}>
-            <Carousel style={{width: '100%', height: '600px'}}>
-                <div>
-                        <div className="content__slide" style={{backgroundImage: "url('/img/restaurant/content_1.jpg'), url('/img/restaurant/black-mask.jpg')"}}>
-                            <div className="container">
-                                <h2>Restaurant Almaty</h2>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda, magnam. Voluptate provident nulla porro ratione inventore vero dolores aspernatur rerum omnis itaque aperiam quaerat nisi, impedit quam, error, nihil voluptatum!Consequatur, odio tempora temporibus perspiciatis repellat praesentium alias iusto incidunt necessitatibus doloremque magnam at reprehenderit atque sapiente quo natus autem omnis deserunt suscipit dolorum? Vel, sunt? Praesentium quisquam mollitia reprehenderit.</p>
-                            </div>
-                        </div>
-                </div>
-                <div>
-                    <div className="content__slide" style={{backgroundImage: "url('/img/restaurant/content_2.jpg'), url('/img/restaurant/black-mask.jpg')"}}>
-                        <div className="container">
-                            <h2>Restaurant Nur-Sultan</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda, magnam. Voluptate provident nulla porro ratione inventore vero dolores aspernatur rerum omnis itaque aperiam quaerat nisi, impedit quam, error, nihil voluptatum!Consequatur, odio tempora temporibus perspiciatis repellat praesentium alias iusto incidunt necessitatibus doloremque magnam at reprehenderit atque sapiente quo natus autem omnis deserunt suscipit dolorum? Vel, sunt? Praesentium quisquam mollitia reprehenderit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="content__slide" style={{backgroundImage: "url('/img/restaurant/content_3.jpg'), url('/img/restaurant/black-mask.jpg')"}}>
-                        <div className="container">
-                            <h2>Restaurant Shymkent</h2>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda, magnam. Voluptate provident nulla porro ratione inventore vero dolores aspernatur rerum omnis itaque aperiam quaerat nisi, impedit quam, error, nihil voluptatum!Consequatur, odio tempora temporibus perspiciatis repellat praesentium alias iusto incidunt necessitatibus doloremque magnam at reprehenderit atque sapiente quo natus autem omnis deserunt suscipit dolorum? Vel, sunt? Praesentium quisquam mollitia reprehenderit.</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </Carousel>
-            
-        
+export function openRestaurant(id) {
+    window.location.href=`/rest?id=${id}`
+}
+
+function Content(props) {
+
+    const cardHeight = 200
+    const cardWidth = 355
+
+    useEffect(() => {
+        props.restActions.getRestaurants({
+            query: '',
+            page: ''
+        })
+    }, [])
+
+    const rests = props.restaurants
+
+    
+
+    const restsCards = rests.map((item,i) => (
+        <div key={i} className="content__card" onClick={() => openRestaurant(item.id)}>
+            <Card
+                hoverable
+                style={{ width: cardWidth, height: cardHeight, marginRight: '40px'}}
+                cover={<div style={{width: cardWidth, height: cardHeight, backgroundImage: `url("http://37.18.30.124:9000/${item.image}")`, backgroundSize: 'cover'}}></div>}
+            />
+            <Meta title={item.name} description={item.location} style={{marginTop: 25}} />
         </div>
+    ))
+    return (
+        <section className="content">
+            <div className="container">
+                <div className="content__wrapper">
+                    <h1  id="restaurants">Рестораны</h1>
+                    <div className="content__restaurants">
+                        <div className="content__first">
+                            {restsCards.length ? restsCards : <h4>Эта информация еще пополняется...</h4>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }
 
-export default Content
+const mapStateToProps = state => ({
+    restaurants: state.restReducer.restaurants,
+  })
+  
+const mapDispatchToProps = dispatch => ({
+    restActions: bindActionCreators(restActions, dispatch),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Content))

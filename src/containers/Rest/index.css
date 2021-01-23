@@ -1,0 +1,22 @@
+.rest__wrapper {
+    padding: 50px 0;
+    width: 100%;
+}
+
+.rest__comments {
+    width: 100%;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rest__fav {
+    width: 25px;
+    cursor: pointer;
+}
+
+.rest__name {
+    margin: 0px;
+}

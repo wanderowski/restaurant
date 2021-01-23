@@ -5,7 +5,7 @@ import * as restActions from '../../actions/restActions'
 import * as kitchenActions from '../../actions/kitchenActions'
 import { withRouter } from 'react-router-dom'
 
-import { Space, Button, Spin, Table, Rate, Image, Pagination, Input, Upload, message, Modal, Select } from 'antd'
+import { Space, Button, Spin, Table, Rate, Image, Input, Upload, message, Modal, Select } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 
 
@@ -47,7 +47,6 @@ function Restaurant(props) {
 
     const handleOk = () => {
         props.restActions.addRestaurant(newRest)
-        console.log(newRest)
         setIsModalVisible(false);
         resetRest()
     }
@@ -70,7 +69,6 @@ function Restaurant(props) {
             ...prev,
             kitchens: `[${id.toString()}]`
         }))
-        console.log(newRest)
     }
 
     const deleteRest = (row) => {
@@ -196,8 +194,7 @@ function Restaurant(props) {
     return (
         <Spin spinning={props.isLoading}>
             <Button onClick={showModal}>Add Restaurant</Button> <br/><br/>
-            {console.log(props.total)}
-            <Table columns={columns} dataSource={data} pagination={{defaultCurrent: 1, total: parseInt(props.total), pageSize: parseInt(props.pageSize), onChange: handlePageChange}}/>
+            <Table size="small" columns={columns} dataSource={data} pagination={{defaultCurrent: 1, total: parseInt(props.total), pageSize: parseInt(props.pageSize), onChange: handlePageChange}}/>
 
             <Modal title="Add New Restaurant" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <Space size='middle' direction='vertical'>

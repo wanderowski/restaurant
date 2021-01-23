@@ -10,7 +10,6 @@ export const LOG_OUT = 'LOG_OUT'
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS'
 export const LOG_OUT_FAILED = 'LOG_OUT_FAILED'
 
-
 export const ADD_KITCHEN = 'ADD_KITCHEN'
 export const ADD_KITCHEN_SUCCESS = 'ADD_KITCHEN_SUCCESS'
 export const ADD_KITCHEN_FAILED = 'ADD_KITCHEN_FAILED'
@@ -38,3 +37,28 @@ export const ADD_REST_FAILED = 'ADD_REST_FAILED'
 export const DEL_REST = 'DEL_REST'
 export const DEL_REST_SUCCESS = 'DEL_REST_SUCCESS'
 export const DEL_REST_FAILED = 'DEL_REST_FAILED'
+
+export const GET_REST = 'GET_REST'
+export const GET_REST_SUCCESS = 'GET_REST_SUCCESS'
+export const GET_REST_FAILED = 'GET_REST_FAILED'
+
+export const ADD_REV = 'ADD_REV'
+export const ADD_REV_SUCCESS = 'ADD_REV_SUCCESS'
+export const ADD_REV_FAILED = 'ADD_REV_FAILED'
+
+export const DEL_REV = 'DEL_REV'
+export const DEL_REV_SUCCESS = 'DEL_REV_SUCCESS'
+export const DEL_REV_FAILED = 'DEL_REV_FAILED'
+
+export const GET_REVS = 'GET_REVS'
+export const GET_REVS_SUCCESS = 'GET_REVS_SUCCESS'
+export const GET_REVS_FAILED = 'GET_REVS_FAILED'
+
+export const ADD_FAV = 'ADD_FAV'
+export const ADD_FAV_SUCCESS = 'ADD_FAV_SUCCESS'
+export const ADD_FAV_FAILED = 'ADD_FAV_FAILED'
+
+export const GET_FAVS = 'GET_FAVS'
+export const GET_FAVS_SUCCESS = 'GET_FAVS_SUCCESS'
+export const GET_FAVS_FAILED = 'GET_FAVS_FAILED'
+

@@ -7,7 +7,8 @@ const initialState = {
     pageSize: '',
     total: '',
     addResponse: '',
-    deleteResponse: ''
+    deleteResponse: '',
+    restaurant: {}
 }
 
 export default function restReducer(state = initialState, action) {
@@ -29,6 +30,12 @@ export default function restReducer(state = initialState, action) {
         case types.DEL_REST_SUCCESS: 
             return {...state, isLoading: false, deleteResponse: 'Successfully deleted'}
         case types.DEL_REST_FAILED: 
+            return {...state, isLoading: false, error: action.error}
+        case types.GET_REST: 
+            return {...state, isLoading: true}
+        case types.GET_REST_SUCCESS: 
+            return {...state, isLoading: false, restaurant: action.payload}
+        case types.GET_REST_FAILED: 
             return {...state, isLoading: false, error: action.error}
         default: 
             return state

@@ -23,7 +23,7 @@ function Search(props) {
     const rests = props.restaurants
     return(
         <div style={{width: '100%'}}>
-            <Header onSearch={onSearch} headerItems={[{title: 'Рестораны', altname: 'restaurants'}, {title: 'Кухни', altname: 'kitchens'}, {title: 'Популярные', altname: 'popular'}, {title: 'Забронировать', altname: 'book'}, {title: 'Контакты', altname: 'contacts'}]}/>
+            <Header onSearch={onSearch} />
             <SearchMain rests={rests}/>
         </div>
         

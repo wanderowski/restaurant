@@ -9,13 +9,22 @@ import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authActions'
 import {withRouter} from 'react-router-dom'
 import LogoutButton from '../logoutbutton'
+import DashboardButton from '../dashboardButton'
+
+import isAdmin from '../../validation/isAdmin'
 
 const { Search } = Input;
 
 
 
 function Header(props) {
-    const {headerItems, onSearch} = props
+    const {onSearch} = props
+    const headerItems= [
+        {title: 'Рестораны', altname: '/#restaurants'},
+        {title: 'Популярные', altname: 'popular'}, 
+        {title: 'Забронировать', altname: 'book'}, 
+        {title: 'Контакты', altname: 'contacts'}
+    ]
     
     const navItems = headerItems.map((item, i) =>
         <NavItem key={i} title={item.title} altname={item.altname} />
@@ -24,6 +33,8 @@ function Header(props) {
                             <Link to='/signup'>Register or Login</Link>
                         </Button>
     const logoutButton = <LogoutButton />
+
+    const dashboardButton = <DashboardButton />
     
     return(
         <header className="header">
@@ -37,6 +48,7 @@ function Header(props) {
                             {navItems}
                             <Search placeholder="Введите название ресторана" allowClear onSearch={onSearch} style={{ width: 200 }}/>
                             {localStorage['token'] ? logoutButton : authButton}
+                            {isAdmin(localStorage['role']) ? dashboardButton : null}
                         </ul>
                     </div>
                 </div>
