@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: #1E1F1E;
+    background-color: #1C1C1C;
 
 }
 
@@ -14,22 +14,27 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .header__logo {
-    width: 150px;
-    filter: invert(1);
-    margin-right: 40px;
+    width: 200px;
+
 }
 
 
 .header__nav {
-    padding: 0;
-    width: 100%;
+    padding: 5px;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .header__navlist {
+    margin: 0px;
+    width: 40%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -46,6 +51,12 @@
 .header__navitem a:hover {
     color: #f2f2f2;
     border-bottom: 2px solid #f2f2f2;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 

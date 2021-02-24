@@ -12,6 +12,15 @@ function* getRestaurants(action) {
     }
 }
 
+function* getAllRestaurants() {
+    try {
+        const allRestaurants = yield axios.get(`http://37.18.30.124:9000/api/restaurant/get`).then(res => res.data)
+        yield put({type: types.GET_ALLRESTS_SUCCESS, payload: allRestaurants})
+    } catch(err) {
+        yield put({type: types.GET_ALLRESTS_FAILED, err})
+    }
+}
+
 
 
 function* addRestaurant(action) {
@@ -46,8 +55,9 @@ function* deleteRestaurant(action) {
     }
 }
 
-function* getRestaurant(action) {
+export function* getRestaurant(action) {
     const { data } = action
+    console.log(data)
     try {
         const restaurant = yield axios.get(`http://37.18.30.124:9000/api/restaurant/${data}`).then(res => res.data)
         yield put({type: types.GET_REST_SUCCESS, payload: restaurant})
@@ -62,6 +72,7 @@ export function* restSaga() {
         yield takeLatest(types.GET_RESTS, getRestaurants),
         yield takeLatest(types.ADD_REST, addRestaurant),
         yield takeLatest(types.DEL_REST, deleteRestaurant),
-        yield takeLatest(types.GET_REST, getRestaurant)
+        yield takeLatest(types.GET_REST, getRestaurant), 
+        yield takeLatest(types.GET_ALLRESTS, getAllRestaurants)
         ])
 }

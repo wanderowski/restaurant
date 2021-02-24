@@ -1,50 +1,67 @@
 import React, {useEffect, useState} from 'react'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import Order from '../../components/order'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as restActions from '../../actions/restActions'
 import * as kitchenActions from '../../actions/kitchenActions'
 import * as revActions from '../../actions/revActions'
 import * as favActions from '../../actions/favActions'
+import * as orderActions from '../../actions/orderActions.js'
 import { withRouter } from 'react-router-dom'
-import {onSearch} from '../Main'
 import {Row, Col, Image, Tag, Descriptions, Rate, Comment, Empty, Space, Form, Button, Input, message} from 'antd'
 import {UserOutlined} from '@ant-design/icons'
 import '../../common.css'
 import './index.css'
 import jwtDecode from 'jwt-decode'
 import isFavorite from '../../validation/isFavorite'
+import isEmpty from '../../validation/isEmpty'
 
 const { TextArea } = Input;
 
 
 function Rest(props) {
     const id = new URLSearchParams(props.location.search).get('id');
-    
-    // Доделать: когда рендерится страница, она должна проверить есть ли этот ресторан в его фейворитах. Если есть, то сделать красным. Иначе обычный
+
+    const [isModalVisible, setIsModalVisible] = useState(false)
+
     const [favImage, setFavImage] = useState("/img/widgets/favourite_transparent.svg")
 
     const [comment, setComment] = useState({
         text: '',
         restaurantId: id
     })
+
+    const [orderDate, setOrderDate] = useState({
+        date: new Date().toISOString().substring(0,10),
+        time: new Date().toLocaleTimeString().substring(0,8)
+    })
+    
+    
+    const [order, setOrder] = useState({
+        userId: isEmpty(localStorage['token']) ? null : jwtDecode(localStorage['token']).id,
+        restaurantId: id,
+        orderdate: `${orderDate.date} ${orderDate.time}`,
+        guest: ''
+    })
     
 
     useEffect(() => {
         props.restActions.getRestaurant(id)
-        
-        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     useEffect(() => {
         props.favActions.getFavorites()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localStorage['token']])
 
     useEffect(() => {
         if(isFavorite(rest.name, props.favorites)) {
             setFavImage("/img/widgets/favourite_filled.svg")
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.favorites])
     
     const rest = props.restaurant
@@ -86,6 +103,8 @@ function Rest(props) {
 
     const onSubmit = () => {
         props.revActions.addReview(comment)
+        document.querySelector('rest__text').target.value = ""
+        
     }
     
     const addFavorite = (id) => {
@@ -101,9 +120,51 @@ function Rest(props) {
         }
         
     }
+
+    const showModal = () => {
+        setIsModalVisible(true)
+    }
+
+    const handleOk = () => {
+        setOrder(prev => ({...prev,
+            orderdate: `${orderDate.date} ${orderDate.time}`,
+        }))
+        props.orderActions.addOrder(order)
+        setIsModalVisible(false);
+    }
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    }
+
+    const handleDate = (date_format, dateString) => {
+        setOrderDate(date => ({
+            ...date,
+            date: dateString
+        }))
+    }
+
+    const handleTime = (time_format, timeString) => {
+        setOrderDate(date => ( { 
+            ...date,
+            time: timeString
+        }))
+        
+    }
+
+    const handleGuests = (e) => {
+        setOrder(order=> ({
+            ...order,
+            guest: e.target.value
+        }))
+    }
+
+
+
+
     return (
         <div style={{width: '100%', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
-            <Header onSearch={onSearch} headerItems={[{title: 'Рестораны', altname: 'restaurants'}, {title: 'Кухни', altname: 'kitchens'}, {title: 'Популярные', altname: 'popular'}, {title: 'Забронировать', altname: 'book'}, {title: 'Контакты', altname: 'contacts'}]}/>
+            <Header />
             <div className="container">
                 <div className="rest__wrapper">
                     <Row justify={'space-between'} align={'top'}>
@@ -115,6 +176,7 @@ function Rest(props) {
                                 <Space size="large" align="center">
                                     <h1 className="rest__name">{rest.name}</h1>
                                     {localStorage['token'] ? <img alt="Add to Favorites" src={favImage} onClick={() => addFavorite(id)} className="rest__fav"/> : ""}
+                                    <Button onClick={showModal}>Забронировать</Button>
                                 </Space>
                                 
                             </Row>
@@ -140,11 +202,11 @@ function Rest(props) {
                             {reviews?.length ? reviews : <Empty description={<span>К сожалению, пока нет отзывов на этот ресторан</span>}/> }
                             <Form style={{width: 800}} onFinish={onSubmit}>
                                 <Form.Item>
-                                    <TextArea rows={4} onChange={onChange} placeholder="Пожалуйста, напишите ваш отзыв" name="text"/>
+                                    <TextArea id="rest__text" rows={4} onChange={onChange} placeholder="Пожалуйста, напишите ваш отзыв" name="text"/>
                                 </Form.Item>
                                 <Form.Item>
                                     <Button htmlType="submit" type="primary">
-                                        Add Comment
+                                        Добавить отзыв
                                     </Button>
                                 </Form.Item>                             
                             </Form>
@@ -153,6 +215,7 @@ function Rest(props) {
                 </div>
             </div>
             <Footer />
+            <Order isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} handleDate={handleDate} handleTime={handleTime} handleGuests={handleGuests} order={order}/>
         </div>
     )
 }
@@ -164,13 +227,15 @@ const mapStateToProps = state => ({
     review: state.revReducer.review,
     favorite: state.favReducer.favorite,
     color: state.favReducer.color,
-    favorites: state.favReducer.favorites
+    favorites: state.favReducer.favorites,
+    order: state.orderReducer.order
   })
   
   const mapDispatchToProps = dispatch => ({
     restActions: bindActionCreators(restActions, dispatch),
     kitchenActions: bindActionCreators(kitchenActions, dispatch),
     revActions: bindActionCreators(revActions, dispatch),
-    favActions: bindActionCreators(favActions, dispatch)
+    favActions: bindActionCreators(favActions, dispatch),
+    orderActions: bindActionCreators(orderActions, dispatch)
   })
   export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Rest))

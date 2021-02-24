@@ -8,7 +8,8 @@
     background-blend-mode: overlay;
 }
 
-.slider__slide .container {
+.slider__container {
+    width: 90%;
     transform: translateY(250px);
 }
 

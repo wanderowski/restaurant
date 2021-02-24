@@ -3,13 +3,16 @@ import axios from 'axios'
 import * as types from '../actions/types'
 import isEmpty  from '../validation/isEmpty'
 import { message } from 'antd'
+import { getRestaurant } from './restSaga'
 
 
 function* addReview(action) {
-    const {data} = action
+    const { data } = action
+    console.log(data)
     try {
         const review = yield axios.post('http://37.18.30.124:9000/api/review', data).then(res => res.data)
         yield put({type: types.ADD_REV_SUCCESS, payload: review})
+        yield getRestaurant({data: data.restaurantId})
     } catch(err) {
         if(isEmpty(localStorage['token'])) {
             message.error('Вы не авторизованы. Зарегистрируйтесь или авторизуйтесь.')

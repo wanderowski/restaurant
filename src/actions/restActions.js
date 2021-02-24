@@ -15,3 +15,7 @@ export function deleteRestaurant(data) {
 export function getRestaurant(data) {
     return {type: types.GET_REST, data}
 }
+
+export function getAllRestaurants() {
+    return {type: types.GET_ALLRESTS}
+}

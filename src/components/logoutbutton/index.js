@@ -11,8 +11,8 @@ function LogoutButton(props) {
         props.authActions.logOut()
     }
     return(
-        <Button ghost onClick={logoutHandler}>
-            Log out
+        <Button type="text" ghost onClick={logoutHandler} danger>
+            Выйти
         </Button>
     )
 }

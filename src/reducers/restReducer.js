@@ -8,7 +8,8 @@ const initialState = {
     total: '',
     addResponse: '',
     deleteResponse: '',
-    restaurant: {}
+    restaurant: {},
+    allRestaurants: []
 }
 
 export default function restReducer(state = initialState, action) {
@@ -36,6 +37,12 @@ export default function restReducer(state = initialState, action) {
         case types.GET_REST_SUCCESS: 
             return {...state, isLoading: false, restaurant: action.payload}
         case types.GET_REST_FAILED: 
+            return {...state, isLoading: false, error: action.error}
+        case types.GET_ALLRESTS: 
+            return {...state, isLoading: true}
+        case types.GET_ALLRESTS_SUCCESS: 
+            return {...state, isLoading: false, allRestaurants: action.payload}
+        case types.GET_ALLRESTS_FAILED: 
             return {...state, isLoading: false, error: action.error}
         default: 
             return state

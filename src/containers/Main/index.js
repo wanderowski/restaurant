@@ -9,10 +9,6 @@ import { bindActionCreators } from 'redux'
 import * as restActions from '../../actions/restActions'
 import { withRouter } from 'react-router-dom'
 
-export function onSearch (query) {
-    window.location.href = `/search?query=${query}`
-}
-
 
 function Main(props) {
     const styles = {
@@ -20,7 +16,7 @@ function Main(props) {
     }
     return(
         <div style={styles}>
-            <Header onSearch={onSearch} />
+            <Header />
             <Slider />
             <Content />
             <Footer />

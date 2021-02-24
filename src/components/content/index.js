@@ -21,24 +21,22 @@ function Content(props) {
     const cardWidth = 355
 
     useEffect(() => {
-        props.restActions.getRestaurants({
-            query: '',
-            page: ''
-        })
+        props.restActions.getAllRestaurants()
     }, [])
 
-    const rests = props.restaurants
+    const rests = props.allRestaurants
 
     
 
-    const restsCards = rests.map((item,i) => (
+    const restsCards = rests?.map((item,i) => (
         <div key={i} className="content__card" onClick={() => openRestaurant(item.id)}>
             <Card
                 hoverable
-                style={{ width: cardWidth, height: cardHeight, marginRight: '40px'}}
+                style={{ width: cardWidth, margin: '0 20px', backgroundColor: 'white'}}
                 cover={<div style={{width: cardWidth, height: cardHeight, backgroundImage: `url("http://37.18.30.124:9000/${item.image}")`, backgroundSize: 'cover'}}></div>}
-            />
-            <Meta title={item.name} description={item.location} style={{marginTop: 25}} />
+            >
+            <Meta title={item.name} description={item.location} style={{width: '100%', margin: '0 20px', backgroundColor: 'white'}} />
+            </Card>
         </div>
     ))
     return (
@@ -48,7 +46,7 @@ function Content(props) {
                     <h1  id="restaurants">Рестораны</h1>
                     <div className="content__restaurants">
                         <div className="content__first">
-                            {restsCards.length ? restsCards : <h4>Эта информация еще пополняется...</h4>}
+                            {restsCards?.length ? restsCards : <h4>Эта информация еще пополняется...</h4>}
                         </div>
                     </div>
                 </div>
@@ -59,6 +57,7 @@ function Content(props) {
 
 const mapStateToProps = state => ({
     restaurants: state.restReducer.restaurants,
+    allRestaurants: state.restReducer.allRestaurants
   })
   
 const mapDispatchToProps = dispatch => ({

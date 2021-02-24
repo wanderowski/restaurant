@@ -14,17 +14,28 @@ function Search(props) {
         window.location.href = `/search?query=${query}`
     }
     
+    const onChange = (page) => {
+        props.restActions.getRestaurants({
+            query: query,
+            page: `${page}`
+        })
+        console.log(page)
+    }
     useEffect(() => {
         props.restActions.getRestaurants({
             query: query,
             page: ''
         })
     }, [query])
+
     const rests = props.restaurants
+    const total = props.total
+    const pageSize = props.pageSize
+
     return(
         <div style={{width: '100%'}}>
             <Header onSearch={onSearch} />
-            <SearchMain rests={rests}/>
+            <SearchMain rests={rests} total={total} pageSize={pageSize} onChange={onChange}/>
         </div>
         
     )

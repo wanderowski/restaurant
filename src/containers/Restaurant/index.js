@@ -241,7 +241,8 @@ const mapStateToProps = state => ({
     pageSize: state.restReducer.pageSize,
     addResponse: state.restReducer.addResponse,
     deleteResponse: state.restReducer.deleteResponse,
-    kitchens: state.kitchenReducer.kitchens
+    allRestaurants: state.restReducer.allRestaurants,
+    kitchens: state.kitchenReducer.kitchens    
   })
   
   const mapDispatchToProps = dispatch => ({

@@ -15,6 +15,9 @@ import SignIn from './containers/SignIn'
 import Main from './containers/Main';
 import Search from './containers/Search'
 import Rest from './containers/Rest';
+import Orders from './containers/Orders'
+import Favorites from './containers/Favorites';
+
 
 const store = configureStore()
 
@@ -44,7 +47,8 @@ function App() {
                 <Route exact path="/main" component={Main} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/rest" component={Rest} />
-                
+                <Route exact path="/orders" component={Orders} />
+                <Route exact path="/favorites" component={Favorites} />
             </Switch>
         </Router>
         </Provider>

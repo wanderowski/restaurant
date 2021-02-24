@@ -1,6 +1,8 @@
 import {all, put, takeLatest} from 'redux-saga/effects'
 import axios from 'axios'
 import * as types from '../actions/types'
+import {message} from 'antd'
+import isEmpty from '../validation/isEmpty'
 
 
 function* addFavourite(action) {
@@ -8,6 +10,7 @@ function* addFavourite(action) {
     try {
         const favourite = yield axios.post('http://37.18.30.124:9000/api/favorite', data).then(res => res.data)
         yield getFavorites()
+        message.info('Добавлено в избранное')
         yield put({type: types.ADD_FAV_SUCCESS, payload: favourite})
     } catch(err) {
         yield put({type: types.ADD_FAV_FAILED, err})

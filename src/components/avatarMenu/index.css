@@ -1,0 +1,17 @@
+.avatar__main {
+    padding: 0 15px 0 0;
+    width: 155px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+}
+
+.avatar__icon {
+    position: relative;
+    left: -3px;
+    border: 3px solid #40A9FF;
+}
